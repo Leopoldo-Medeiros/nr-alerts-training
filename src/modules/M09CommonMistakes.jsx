@@ -1,6 +1,7 @@
 import Accordion from '../components/interactive/Accordion.jsx';
+import ModuleQuiz from '../components/interactive/ModuleQuiz.jsx';
 
-export default function M09CommonMistakes() {
+export default function M09CommonMistakes({ onQuizComplete, quizScore }) {
   return (
     <div className="module-section fade-in">
       <div className="eyebrow">Module 09</div>
@@ -11,6 +12,7 @@ export default function M09CommonMistakes() {
       </p>
 
       <Accordion />
+      <ModuleQuiz moduleId="M09CommonMistakes" onComplete={onQuizComplete} />
     </div>
   );
 }

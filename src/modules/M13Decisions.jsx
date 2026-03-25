@@ -1,4 +1,5 @@
-export default function M13Decisions() {
+import ModuleQuiz from '../components/interactive/ModuleQuiz.jsx';
+export default function M13Decisions({ onQuizComplete, quizScore }) {
   return (
     <article className="module-section fade-in">
       <p className="eyebrow">Module 13</p>
@@ -177,6 +178,7 @@ export default function M13Decisions() {
         <li>Your feedback (accept/reject) directly trains the ML model — use it after major incidents.</li>
         <li>Topology correlation is the most powerful pattern but requires a well-instrumented entity graph.</li>
       </ul>
+      <ModuleQuiz moduleId="M13Decisions" onComplete={onQuizComplete} />
     </article>
   );
 }

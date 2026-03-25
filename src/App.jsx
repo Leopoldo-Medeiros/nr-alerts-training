@@ -34,9 +34,22 @@ const MODULE_MAP = {
   M14AlertQuality,
 };
 
+function loadScores() {
+  try {
+    return JSON.parse(localStorage.getItem('nr_quiz_scores') || '{}');
+  } catch {
+    return {};
+  }
+}
+
+function saveScores(scores) {
+  localStorage.setItem('nr_quiz_scores', JSON.stringify(scores));
+}
+
 export default function App() {
   const [activeModule, setActiveModule] = useState('M01Architecture');
-  const [visited, setVisited] = useState(new Set(['M01Architecture']));
+  const [visited, setVisited]   = useState(new Set(['M01Architecture']));
+  const [scores, setScores]     = useState(loadScores);
   const mainRef = useRef(null);
 
   const handleNavigate = (moduleId) => {
@@ -45,14 +58,31 @@ export default function App() {
     if (mainRef.current) mainRef.current.scrollTop = 0;
   };
 
+  const handleQuizComplete = ({ moduleId, score, total, passed }) => {
+    const updated = { ...scores, [moduleId]: { score, total, passed } };
+    setScores(updated);
+    saveScores(updated);
+  };
+
   const ActiveModule = MODULE_MAP[activeModule];
 
   return (
     <div className="layout">
-      <Header visited={visited} total={Object.keys(MODULE_MAP).length} />
-      <Sidebar activeModule={activeModule} onNavigate={handleNavigate} visited={visited} />
+      <Header visited={visited} total={Object.keys(MODULE_MAP).length} scores={scores} />
+      <Sidebar
+        activeModule={activeModule}
+        onNavigate={handleNavigate}
+        visited={visited}
+        scores={scores}
+      />
       <main className="main-content" ref={mainRef}>
-        {ActiveModule && <ActiveModule onNavigate={handleNavigate} />}
+        {ActiveModule && (
+          <ActiveModule
+            onNavigate={handleNavigate}
+            onQuizComplete={handleQuizComplete}
+            quizScore={scores[activeModule]}
+          />
+        )}
       </main>
     </div>
   );

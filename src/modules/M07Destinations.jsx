@@ -1,7 +1,8 @@
 import DestinationGrid from '../components/interactive/DestinationGrid.jsx';
 import Card from '../components/ui/Card.jsx';
+import ModuleQuiz from '../components/interactive/ModuleQuiz.jsx';
 
-export default function M07Destinations() {
+export default function M07Destinations({ onQuizComplete, quizScore }) {
   return (
     <div className="module-section fade-in">
       <div className="eyebrow">Module 07</div>
@@ -26,6 +27,7 @@ export default function M07Destinations() {
           Every destination has a "Test connection" button. Use this first when troubleshooting delivery failures before debugging the workflow filter or message template.
         </Card>
       </div>
+      <ModuleQuiz moduleId="M07Destinations" onComplete={onQuizComplete} />
     </div>
   );
 }

@@ -1,8 +1,9 @@
 import StateMachineDiagram from '../components/diagrams/StateMachineDiagram.jsx';
 import Card from '../components/ui/Card.jsx';
 import Callout from '../components/ui/Callout.jsx';
+import ModuleQuiz from '../components/interactive/ModuleQuiz.jsx';
 
-export default function M04Incidents() {
+export default function M04Incidents({ onQuizComplete, quizScore }) {
   return (
     <div className="module-section fade-in">
       <div className="eyebrow">Module 04</div>
@@ -33,6 +34,7 @@ export default function M04Incidents() {
       <Callout variant="warning">
         <strong>Warning threshold behavior:</strong> Warning incidents open with Warning priority. By default, most workflows are configured to trigger only on Critical-priority issues. If your workflow filter is <code>issue.priority = 'CRITICAL'</code>, Warning incidents will never trigger a notification — even if they are open and the customer expects one.
       </Callout>
+      <ModuleQuiz moduleId="M04Incidents" onComplete={onQuizComplete} />
     </div>
   );
 }

@@ -2,6 +2,7 @@ import DataTable from '../components/ui/DataTable.jsx';
 import Card from '../components/ui/Card.jsx';
 import Callout from '../components/ui/Callout.jsx';
 import Badge from '../components/ui/Badge.jsx';
+import ModuleQuiz from '../components/interactive/ModuleQuiz.jsx';
 
 const issueStateColumns = [
   { key: 'state',   label: 'State' },
@@ -27,7 +28,7 @@ const issueStateRows = [
   },
 ];
 
-export default function M05Issues() {
+export default function M05Issues({ onQuizComplete, quizScore }) {
   return (
     <div className="module-section fade-in">
       <div className="eyebrow">Module 05</div>
@@ -62,6 +63,7 @@ export default function M05Issues() {
       <Callout variant="info">
         <strong>Correlation vs. grouping:</strong> The Policy's Incident Creation Preference groups incidents <em>within</em> a policy into issues. Correlation merges issues <em>across</em> policies into a parent issue. These are two distinct mechanisms operating at different levels of the hierarchy.
       </Callout>
+      <ModuleQuiz moduleId="M05Issues" onComplete={onQuizComplete} />
     </div>
   );
 }

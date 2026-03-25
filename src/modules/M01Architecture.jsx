@@ -1,8 +1,9 @@
 import HierarchyDiagram from '../components/diagrams/HierarchyDiagram.jsx';
 import Pipeline from '../components/interactive/Pipeline.jsx';
 import Callout from '../components/ui/Callout.jsx';
+import ModuleQuiz from '../components/interactive/ModuleQuiz.jsx';
 
-export default function M01Architecture() {
+export default function M01Architecture({ onQuizComplete, quizScore }) {
   return (
     <div className="module-section fade-in">
       <div className="eyebrow">Module 01</div>
@@ -24,6 +25,7 @@ export default function M01Architecture() {
       <Callout variant="info">
         <strong>Key mental model:</strong> Conditions detect. Incidents record. Issues aggregate. Workflows route. Destinations deliver. Each stage is independently configurable — changing a workflow does not affect conditions, and vice versa.
       </Callout>
+      <ModuleQuiz moduleId="M01Architecture" onComplete={onQuizComplete} />
     </div>
   );
 }

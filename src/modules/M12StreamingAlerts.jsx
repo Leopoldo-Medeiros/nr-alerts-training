@@ -1,4 +1,5 @@
-export default function M12StreamingAlerts() {
+import ModuleQuiz from '../components/interactive/ModuleQuiz.jsx';
+export default function M12StreamingAlerts({ onQuizComplete, quizScore }) {
   return (
     <article className="module-section fade-in">
       <p className="eyebrow">Module 12</p>
@@ -184,6 +185,7 @@ export default function M12StreamingAlerts() {
         <li>Gap-filling with static 0 on an error-rate condition is a common footgun — pair with signal loss instead.</li>
         <li>Sliding windows smooth noise at the cost of evaluation frequency — use sparingly.</li>
       </ul>
+      <ModuleQuiz moduleId="M12StreamingAlerts" onComplete={onQuizComplete} />
     </article>
   );
 }

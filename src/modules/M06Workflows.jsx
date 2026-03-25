@@ -3,6 +3,7 @@ import WorkflowPlayground from '../components/interactive/WorkflowPlayground.jsx
 import DataTable from '../components/ui/DataTable.jsx';
 import Callout from '../components/ui/Callout.jsx';
 import Card from '../components/ui/Card.jsx';
+import ModuleQuiz from '../components/interactive/ModuleQuiz.jsx';
 
 const comparisonColumns = [
   { key: 'aspect',  label: 'Aspect' },
@@ -18,7 +19,7 @@ const comparisonRows = [
   { aspect: 'Reusability',        legacy: 'Per-policy configuration',                               current: 'One workflow can serve all policies' },
 ];
 
-export default function M06Workflows() {
+export default function M06Workflows({ onQuizComplete, quizScore }) {
   return (
     <div className="module-section fade-in">
       <div className="eyebrow">Module 06</div>
@@ -59,6 +60,7 @@ export default function M06Workflows() {
       <Callout variant="critical">
         <strong>Silent alert failure pattern:</strong> A customer changes a legacy Notification Channel on their policy but continues to not receive notifications. The reason is that their actual notifications are routed via a Workflow — which is independent of the policy. The legacy channel change had no effect.
       </Callout>
+      <ModuleQuiz moduleId="M06Workflows" onComplete={onQuizComplete} />
     </div>
   );
 }

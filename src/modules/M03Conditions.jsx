@@ -2,6 +2,7 @@ import NrqlAnatomy from '../components/interactive/NrqlAnatomy.jsx';
 import ConditionProps from '../components/interactive/ConditionProps.jsx';
 import DataTable from '../components/ui/DataTable.jsx';
 import Callout from '../components/ui/Callout.jsx';
+import ModuleQuiz from '../components/interactive/ModuleQuiz.jsx';
 
 const conditionTypeColumns = [
   { key: 'type',   label: 'Type' },
@@ -18,7 +19,7 @@ const conditionTypeRows = [
   { type: 'Synthetic',      source: 'Synthetic monitors',     best: 'Uptime checks, scripted browser flows' },
 ];
 
-export default function M03Conditions() {
+export default function M03Conditions({ onQuizComplete, quizScore }) {
   return (
     <div className="module-section fade-in">
       <div className="eyebrow">Module 03</div>
@@ -43,6 +44,7 @@ export default function M03Conditions() {
       <Callout variant="info">
         <strong>FACET matters:</strong> If your NRQL uses <code>FACET host</code>, the condition creates a <em>separate incident per host</em> that violates the threshold. One condition querying 50 hosts can open 50 simultaneous incidents. Factor this into your Incident Creation Preference decision.
       </Callout>
+      <ModuleQuiz moduleId="M03Conditions" onComplete={onQuizComplete} />
     </div>
   );
 }

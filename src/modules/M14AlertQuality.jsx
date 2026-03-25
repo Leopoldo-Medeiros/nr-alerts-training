@@ -1,4 +1,5 @@
-export default function M14AlertQuality() {
+import ModuleQuiz from '../components/interactive/ModuleQuiz.jsx';
+export default function M14AlertQuality({ onQuizComplete, quizScore }) {
   return (
     <article className="module-section fade-in">
       <p className="eyebrow">Module 14</p>
@@ -163,6 +164,7 @@ FROM NrAiIncident WHERE event = 'close' SINCE 4 weeks ago`}</pre>
         <li>Coverage gaps (missing conditions) are as dangerous as noisy conditions — instrument new services before they break.</li>
         <li>Embed AQM into weekly operations and quarterly audits to prevent gradual drift.</li>
       </ul>
+      <ModuleQuiz moduleId="M14AlertQuality" onComplete={onQuizComplete} />
     </article>
   );
 }

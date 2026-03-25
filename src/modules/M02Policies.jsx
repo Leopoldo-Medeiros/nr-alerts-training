@@ -1,8 +1,9 @@
 import PreferenceSimulator from '../components/interactive/PreferenceSimulator.jsx';
 import Callout from '../components/ui/Callout.jsx';
 import Card from '../components/ui/Card.jsx';
+import ModuleQuiz from '../components/interactive/ModuleQuiz.jsx';
 
-export default function M02Policies() {
+export default function M02Policies({ onQuizComplete, quizScore }) {
   return (
     <div className="module-section fade-in">
       <div className="eyebrow">Module 02</div>
@@ -41,6 +42,7 @@ export default function M02Policies() {
         <li>A policy with a single condition is perfectly valid and common.</li>
         <li>Avoid putting unrelated services in the same policy — the Incident Creation Preference applies to all conditions equally.</li>
       </ul>
+      <ModuleQuiz moduleId="M02Policies" onComplete={onQuizComplete} />
     </div>
   );
 }

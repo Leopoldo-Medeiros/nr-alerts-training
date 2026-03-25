@@ -2,8 +2,9 @@ import MutingVisualizer from '../components/interactive/MutingVisualizer.jsx';
 import Card from '../components/ui/Card.jsx';
 import CodeBlock from '../components/ui/CodeBlock.jsx';
 import Callout from '../components/ui/Callout.jsx';
+import ModuleQuiz from '../components/interactive/ModuleQuiz.jsx';
 
-export default function M08MutingRules() {
+export default function M08MutingRules({ onQuizComplete, quizScore }) {
   return (
     <div className="module-section fade-in">
       <div className="eyebrow">Module 08</div>
@@ -40,6 +41,7 @@ export default function M08MutingRules() {
       <Callout variant="warning">
         <strong>Common confusion:</strong> Customers expect that muting a rule "turns off" the alert condition. It does not. If they need to stop incidents from opening entirely, they must disable or delete the condition. Muting only suppresses the notification delivery step.
       </Callout>
+      <ModuleQuiz moduleId="M08MutingRules" onComplete={onQuizComplete} />
     </div>
   );
 }
