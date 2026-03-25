@@ -1,0 +1,203 @@
+/* ── Badge ─────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 3px;
+  letter-spacing: 0.03em;
+}
+
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.badge--crit {
+  background: var(--crit-bg);
+  color: var(--crit);
+  border: 1px solid var(--crit-dim);
+}
+
+.badge--warn {
+  background: var(--warn-bg);
+  color: var(--warn);
+  border: 1px solid var(--warn-dim);
+}
+
+.badge--ok {
+  background: var(--ok-bg);
+  color: var(--ok);
+  border: 1px solid var(--ok-dim);
+}
+
+.badge--mute {
+  background: var(--bg-card);
+  color: var(--text-muted);
+  border: 1px solid var(--border-default);
+}
+
+/* ── Callout ────────────────────────────────────────── */
+.callout {
+  display: flex;
+  gap: 12px;
+  padding: 13px 16px;
+  border-radius: var(--radius);
+  border: 1px solid;
+  margin: 18px 0;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.callout svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.callout--info {
+  background: var(--info-bg);
+  border-color: #1e3a5f;
+  color: var(--text-secondary);
+}
+
+.callout--warning {
+  background: var(--warn-bg);
+  border-color: var(--warn-dim);
+  color: var(--text-secondary);
+}
+
+.callout--critical {
+  background: var(--crit-bg);
+  border-color: var(--crit-dim);
+  color: var(--text-secondary);
+}
+
+.callout--ok {
+  background: var(--ok-bg);
+  border-color: var(--ok-dim);
+  color: var(--text-secondary);
+}
+
+/* ── Card ───────────────────────────────────────────── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  margin-bottom: 10px;
+}
+
+.card__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.card__body {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ── CodeBlock ──────────────────────────────────────── */
+.code-block {
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.75;
+  overflow-x: auto;
+  margin: 14px 0;
+}
+
+.code-block .kw  { color: #f97316; }
+.code-block .fn  { color: #60a5fa; }
+.code-block .str { color: #4ade80; }
+.code-block .num { color: #fb923c; }
+.code-block .cmt { color: var(--text-muted); font-style: italic; }
+
+/* ── DataTable ──────────────────────────────────────── */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 16px 0;
+}
+
+.data-table th {
+  text-align: left;
+  padding: 8px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-default);
+  background: var(--bg-card);
+}
+
+.data-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  vertical-align: top;
+}
+
+.data-table tr:hover td {
+  background: var(--bg-hover);
+}
+
+.data-table td:first-child {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* ── Callout shorthand aliases ──────────────────────── */
+.callout--warn    { background: var(--warn-bg); border-color: var(--warn-dim); color: var(--text-secondary); }
+.callout--crit    { background: var(--crit-bg); border-color: var(--crit-dim); color: var(--text-secondary); }
+
+.callout-title {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  font-size: 13px;
+}
+
+/* ── PropTable ──────────────────────────────────────── */
+.prop-table {
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 14px 0;
+  font-size: 13px;
+}
+
+.prop-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.prop-row:last-child {
+  border-bottom: none;
+}
+
+.prop-key {
+  padding: 10px 14px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-weight: 500;
+  border-right: 1px solid var(--border-subtle);
+}
+
+.prop-val {
+  padding: 10px 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}

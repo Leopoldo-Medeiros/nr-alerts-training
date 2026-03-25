@@ -1,0 +1,271 @@
+/* ── HierarchyDiagram ───────────────────────────────── */
+.hierarchy-diagram {
+  margin: 28px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+}
+
+.hierarchy-layer {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-default);
+  background: var(--bg-card);
+  border-left-width: 4px;
+}
+
+.hierarchy-layer--signal     { border-left-color: var(--teal); }
+.hierarchy-layer--detection  { border-left-color: var(--blue); }
+.hierarchy-layer--incident   { border-left-color: var(--crit); }
+.hierarchy-layer--issue      { border-left-color: var(--warn); }
+.hierarchy-layer--notification { border-left-color: var(--ok); }
+
+.hierarchy-layer-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.hierarchy-layer--signal .hierarchy-layer-icon     { background: var(--teal-dim); color: var(--teal); }
+.hierarchy-layer--detection .hierarchy-layer-icon  { background: var(--blue-dim); color: var(--blue); }
+.hierarchy-layer--incident .hierarchy-layer-icon   { background: var(--crit-bg);  color: var(--crit); }
+.hierarchy-layer--issue .hierarchy-layer-icon      { background: var(--warn-bg);  color: var(--warn); }
+.hierarchy-layer--notification .hierarchy-layer-icon { background: var(--ok-bg);  color: var(--ok);   }
+
+.hierarchy-layer-text { flex: 1; }
+
+.hierarchy-layer-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.hierarchy-layer-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.hierarchy-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 0;
+  gap: 2px;
+}
+
+.hierarchy-connector-arrow {
+  color: var(--border-strong);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.hierarchy-connector-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.04em;
+}
+
+/* ── StateMachineDiagram ────────────────────────────── */
+.state-machine-wrap {
+  margin: 24px 0;
+}
+
+.state-machine-states {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+.sm-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.sm-box {
+  width: 126px;
+  height: 52px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: 1px solid;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.sm-box--open  { background: var(--crit-bg); border-color: var(--crit-dim); color: var(--crit); }
+.sm-box--ack   { background: var(--warn-bg); border-color: var(--warn-dim); color: var(--warn); }
+.sm-box--closed { background: var(--ok-bg);  border-color: var(--ok-dim);  color: var(--ok);   }
+
+.sm-box:hover,
+.sm-box--sel {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+
+.sm-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 12px;
+  margin-bottom: 16px;
+}
+
+.sm-arrow svg { color: var(--border-strong); }
+
+.sm-arrow-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  text-align: center;
+  max-width: 60px;
+}
+
+.sm-detail {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  animation: fadeIn 0.15s ease;
+}
+
+.sm-detail strong { color: var(--text-primary); }
+
+/* ── WorkflowDecisionDiagram ────────────────────────── */
+.workflow-decision {
+  margin: 24px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.wdd-node {
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-default);
+  background: var(--bg-card);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  min-width: 200px;
+}
+
+.wdd-node--start {
+  background: var(--bg-elevated);
+  border-color: var(--border-strong);
+}
+
+.wdd-node--decision {
+  background: var(--blue-dim);
+  border-color: var(--blue);
+  color: var(--blue);
+  transform: rotate(0deg);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  width: 220px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.wdd-arrow-down {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 0;
+  color: var(--border-strong);
+}
+
+.wdd-arrow-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.wdd-branches {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  margin-top: 8px;
+}
+
+.wdd-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.wdd-branch-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.wdd-branch--yes .wdd-branch-label { color: var(--teal); }
+.wdd-branch--no  .wdd-branch-label { color: var(--text-muted); }
+
+.wdd-step {
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  border: 1px solid;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  min-width: 180px;
+}
+
+.wdd-branch--yes .wdd-step {
+  background: var(--teal-dim);
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+.wdd-branch--no .wdd-step {
+  background: var(--bg-elevated);
+  border-color: var(--border-default);
+  color: var(--text-muted);
+}
+
+.wdd-step-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 0;
+  color: var(--border-strong);
+}
+
+.wdd-branch--yes .wdd-step-arrow { color: var(--teal); opacity: 0.5; }
+
+.wdd-node--delivered {
+  background: var(--ok-bg);
+  border-color: var(--ok-dim);
+  color: var(--ok);
+  font-weight: 600;
+}

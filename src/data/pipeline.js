@@ -1,0 +1,98 @@
+const pipelineNodes = [
+  {
+    id: 'signal',
+    label: 'Signal',
+    stepLabel: 'Telemetry',
+    iconPath: 'M22 12 L18 12 L15 21 L9 3 L6 12 L2 12',
+    iconViewBox: '0 0 24 24',
+    title: 'Signal — Telemetry Input',
+    description: `The signal is any numeric time-series data ingested by New Relic: metrics from APM agents, infrastructure agents, browser/mobile SDKs, OpenTelemetry, or custom events. Conditions query this data continuously. Without an active signal, a condition cannot evaluate — this is the first thing to verify when an alert seems "stuck."`,
+    bullets: [
+      'Metrics, events, logs, and traces all qualify as signal sources.',
+      'A signal gap (no data) is treated differently from a signal that crosses a threshold — the condition\'s fill option controls this behavior.',
+    ],
+  },
+  {
+    id: 'condition',
+    label: 'Condition',
+    stepLabel: 'Detection',
+    iconPath: 'M22 3 L2 3 L10 12.46 L10 19 L14 21 L14 12.46 Z',
+    iconViewBox: '0 0 24 24',
+    title: 'Condition — Detection Engine',
+    description: `The condition is the detection engine. It runs a NRQL query (or APM/Infra metric query) on a rolling evaluation window and checks the result against defined thresholds. When the threshold is sustained for the configured duration, the condition opens an Incident.`,
+    bullets: [
+      'One condition can produce multiple simultaneous incidents — one per entity it detects a violation on.',
+      "Conditions live inside a Policy. The Policy's Incident Creation Preference controls how those incidents become Issues.",
+    ],
+  },
+  {
+    id: 'incident',
+    label: 'Incident',
+    stepLabel: 'Breach record',
+    iconPath: 'M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z M12 9 L12 13 M12 17 L12.01 17',
+    iconViewBox: '0 0 24 24',
+    title: 'Incident — Threshold Breach Record',
+    description: `An incident is the record that a specific condition's threshold was violated. It has its own lifecycle: Open → Acknowledged → Closed. Incidents are internal records — they are not the unit that Workflows act on. That is the Issue.`,
+    bullets: [
+      'Incidents close automatically when the signal recovers below threshold.',
+      'The "close violations after X hours" setting forces closure after a timeout, regardless of signal state.',
+      'Deleting a condition does not auto-close its open incidents.',
+    ],
+  },
+  {
+    id: 'issue',
+    label: 'Issue',
+    stepLabel: 'Aggregation',
+    iconPath: 'M12 2 L2 7 L12 12 L22 7 Z M2 17 L12 22 L22 17 M2 12 L12 17 L22 12',
+    iconViewBox: '0 0 24 24',
+    title: 'Issue — The User-Facing Unit',
+    description: `An issue is the aggregation of one or more related incidents, governed by the Policy's Incident Creation Preference. Issues are what Workflows listen to. They are the user-visible entity in the Alerts UI.`,
+    bullets: [
+      'Issue priority is determined by the highest-priority incident within it.',
+      'Issues can be further correlated across policies using AIOps correlation rules (formerly "Decisions").',
+      'An issue closes when all its underlying incidents close.',
+    ],
+  },
+  {
+    id: 'workflow',
+    label: 'Workflow',
+    stepLabel: 'Routing & enrichment',
+    iconPath: 'M18 18 m-3 0 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0 M6 6 m-3 0 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0 M13 6 h3 a2 2 0 0 1 2 2 v7 M6 9 L6 21',
+    iconViewBox: '0 0 24 24',
+    title: 'Workflow — Routing & Enrichment',
+    description: `A workflow listens for issue state-change events and decides whether to act based on a filter. If the issue matches, the workflow optionally runs enrichment NRQL queries, builds a notification message, and sends it to a Destination.`,
+    bullets: [
+      'Workflows are decoupled from policies — one workflow can catch issues from any policy.',
+      'Workflows replaced the legacy Notification Channel model (pre-2022).',
+      'If no workflow matches an issue, no notification is sent — even if incidents are open.',
+    ],
+  },
+  {
+    id: 'destination',
+    label: 'Destination',
+    stepLabel: 'Slack · PD · etc.',
+    iconPath: 'M2 2 h20 a2 2 0 0 1 2 2 v4 a2 2 0 0 1 -2 2 H2 a2 2 0 0 1 -2-2 V4 a2 2 0 0 1 2-2 Z M2 14 h20 a2 2 0 0 1 2 2 v4 a2 2 0 0 1 -2 2 H2 a2 2 0 0 1 -2-2 v-4 a2 2 0 0 1 2-2 Z M6 6 L6.01 6 M6 18 L6.01 18',
+    iconViewBox: '0 0 24 24',
+    title: 'Destination — Authenticated Connection',
+    description: `A destination is a reusable, authenticated connection to an external system — Slack, PagerDuty, Jira, ServiceNow, a webhook, and more. It is defined once and referenced by multiple workflows. Credentials are stored securely and never re-entered per-workflow.`,
+    bullets: [
+      'Authentication failures on the destination are the most common cause of silent alert delivery failure.',
+      'One destination can serve dozens of workflows.',
+    ],
+  },
+  {
+    id: 'notification',
+    label: 'Notification',
+    stepLabel: 'Message sent',
+    iconPath: 'M18 8 A6 6 0 0 0 6 8 c0 7 -3 9 -3 9 h18 s-3-2-3-9 M13.73 21 a2 2 0 0 1 -3.46 0',
+    iconViewBox: '0 0 24 24',
+    title: 'Notification — Delivered Message',
+    description: `The notification is the final output: a Slack message, PagerDuty alert, Jira ticket, or webhook payload. Its content is controlled by the workflow's message template, written in Handlebars syntax. Each notification carries issue metadata: title, priority, open incidents, entity tags, and any enrichment data.`,
+    bullets: [
+      'Notification logs are available in the Alerts UI under each workflow\'s run history.',
+      'A workflow can fire multiple times per issue — once per state change it is configured to trigger on.',
+    ],
+  },
+];
+
+export default pipelineNodes;
