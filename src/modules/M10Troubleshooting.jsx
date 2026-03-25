@@ -1,7 +1,8 @@
 import TroubleshootingFlow from '../components/interactive/TroubleshootingFlow.jsx';
+import ModuleQuiz from '../components/interactive/ModuleQuiz.jsx';
 import Callout from '../components/ui/Callout.jsx';
 
-export default function M10Troubleshooting({ onNavigate }) {
+export default function M10Troubleshooting({ onNavigate, onQuizComplete, quizScore }) {
   return (
     <div className="module-section fade-in">
       <div className="eyebrow">Module 10</div>
@@ -18,6 +19,7 @@ export default function M10Troubleshooting({ onNavigate }) {
       </Callout>
 
       <TroubleshootingFlow onNavigate={onNavigate} />
+      <ModuleQuiz moduleId="M10Troubleshooting" onComplete={onQuizComplete} />
     </div>
   );
 }

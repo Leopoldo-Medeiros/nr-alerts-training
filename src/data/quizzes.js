@@ -1,4 +1,72 @@
 const quizzes = {
+  M10Troubleshooting: [
+    {
+      id: 'M10Q1',
+      question: "A customer's condition fired, an incident opened, and an issue was created — but no PagerDuty page was ever received. What is the first layer to investigate?",
+      options: [
+        'The NRQL threshold value on the condition',
+        'Whether the workflow filter matches this issue',
+        'The PagerDuty destination API key',
+        'The issue creation preference on the policy',
+      ],
+      correctIndex: 1,
+      explanation:
+        'If an incident and issue were created, the condition is working correctly. The notification layer is the workflow. A filter that does not match the issue (e.g., filtering on CRITICAL when the issue is MEDIUM priority) silently drops the notification without any error.',
+    },
+    {
+      id: 'M10Q2',
+      question: "A customer's host went down. The infrastructure agent stopped reporting. No alert fired. The customer has a CPU threshold condition on that host. What is the most likely root cause?",
+      options: [
+        'The CPU threshold is set too high',
+        'The policy has no workflow attached',
+        'Signal loss detection is not configured — threshold conditions cannot detect absent data',
+        'The aggregation window is too long',
+      ],
+      correctIndex: 2,
+      explanation:
+        'Threshold conditions require data to evaluate. A dead host sends nothing, so the condition never runs. Signal loss detection is a separate configuration specifically designed to fire when a signal goes completely silent. Without it, a host-down scenario produces no alert.',
+    },
+    {
+      id: 'M10Q3',
+      question: "A customer's incident opened and closed 6 times in 45 minutes. The signal shows a clear sustained breach the entire time. On-call is being woken up repeatedly. What is this pattern called and what is the correct fix?",
+      options: [
+        'Signal loss — add signal loss detection to the condition',
+        'Flapping — the threshold is too close to the normal operating value; raise it or add a sustained-breach requirement',
+        'Workflow deduplication failure — enable deduplication on the workflow',
+        'Gap-filling issue — set gap-filling to last known value',
+      ],
+      correctIndex: 1,
+      explanation:
+        'Flapping occurs when the signal oscillates around the threshold — dipping below briefly before breaching again. Each close-and-reopen creates a new incident and new notification. Fix by raising the threshold so brief dips do not cause recovery, or require the signal to breach for N consecutive minutes before opening.',
+    },
+    {
+      id: 'M10Q4',
+      question: "A customer had a maintenance window last month. They configured a muting rule but forgot to set an expiry. Their monitoring has been silent ever since. Where do you direct them?",
+      options: [
+        'Alerts > Conditions — check if conditions were disabled',
+        'Alerts > Muting Rules — find and delete or expire the active rule',
+        'Alerts > Workflows — check if the workflow was paused',
+        'Alerts > Destinations — re-authenticate the destination',
+      ],
+      correctIndex: 1,
+      explanation:
+        'A muting rule without an expiry runs indefinitely. It suppresses notifications without affecting incident/issue creation, so everything looks normal in the UI but no pages are sent. Always check active muting rules early in "no notifications" investigations.',
+    },
+    {
+      id: 'M10Q5',
+      question: "After migrating from legacy notification channels to workflows, a customer's Warning alerts stopped sending Slack notifications. Critical alerts still work fine. What is the most likely cause?",
+      options: [
+        'Workflows do not support Slack for Warning alerts',
+        'The workflow filter is set to priority = CRITICAL, excluding Warning (MEDIUM priority) issues',
+        'The Slack destination was not migrated from the legacy channel',
+        'Warning conditions were disabled during the migration',
+      ],
+      correctIndex: 1,
+      explanation:
+        'This is the most common post-migration issue. Warning thresholds produce MEDIUM priority issues. A workflow filtering on CRITICAL will never match them. The fix is to add a second workflow for MEDIUM priority, or remove the priority filter and rely on other attributes to route notifications.',
+    },
+  ],
+
   M01Architecture: [
     {
       id: 'M01Q1',
