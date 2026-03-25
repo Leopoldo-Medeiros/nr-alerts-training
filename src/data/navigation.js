@@ -1,4 +1,5 @@
 const navigation = [
+  { id: 'M00Skills',         label: 'My Progress',              index: '—',  dashboard: true },
   { id: 'M01Architecture',   label: 'Architecture & Data Flow', index: '01' },
   { id: 'M02Policies',       label: 'Alert Policies',           index: '02' },
   { id: 'M03Conditions',     label: 'Alert Conditions',         index: '03' },

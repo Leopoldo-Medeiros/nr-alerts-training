@@ -1,12 +1,9 @@
 import { useState } from 'react';
-import quizzes from '../../data/quizzes.js';
 
-const PASS_THRESHOLD = 0.8;
-
-export default function ModuleQuiz({ moduleId, onComplete }) {
-  const questions = quizzes[moduleId];
+export default function ReviewQuiz({ questions, onComplete }) {
   const [answers, setAnswers]     = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [done, setDone]           = useState(false);
 
   if (!questions || questions.length === 0) return null;
 
@@ -20,26 +17,20 @@ export default function ModuleQuiz({ moduleId, onComplete }) {
   const handleSubmit = () => {
     if (!allAnswered) return;
     setSubmitted(true);
-    const score  = questions.filter((q) => answers[q.id] === q.correctIndex).length;
-    const passed = score / questions.length >= PASS_THRESHOLD;
-    const wrong  = questions
+    const correct = questions.filter((q) => answers[q.id] === q.correctIndex).map((q) => q.id);
+    const wrong   = questions
       .filter((q) => answers[q.id] !== q.correctIndex)
       .map((q) => ({ id: q.id, question: q.question, options: q.options, correctIndex: q.correctIndex, explanation: q.explanation }));
-    onComplete?.({ moduleId, score, total: questions.length, passed, wrong });
-  };
-
-  const handleRetry = () => {
-    setAnswers({});
-    setSubmitted(false);
+    onComplete?.({ correct, wrong });
+    setDone(true);
   };
 
   const score  = submitted ? questions.filter((q) => answers[q.id] === q.correctIndex).length : 0;
-  const passed = submitted && score / questions.length >= PASS_THRESHOLD;
 
   return (
     <div className="quiz-wrap">
       <div className="quiz-header">
-        <span className="quiz-label">Knowledge Check</span>
+        <span className="quiz-label">Wrong Answer Review</span>
         <span className="quiz-count">{questions.length} questions</span>
       </div>
 
@@ -85,16 +76,13 @@ export default function ModuleQuiz({ moduleId, onComplete }) {
           {allAnswered ? 'Check answers' : `Answer all ${questions.length} questions to continue`}
         </button>
       ) : (
-        <div className={`quiz-result${passed ? ' quiz-result--pass' : ' quiz-result--fail'}`}>
+        <div className={`quiz-result${score === questions.length ? ' quiz-result--pass' : ' quiz-result--fail'}`}>
           <div className="quiz-result-score">{score}/{questions.length} correct</div>
           <div className="quiz-result-label">
-            {passed
-              ? 'Module passed — well done.'
-              : `${Math.round((score / questions.length) * 100)}% — need 80% to pass.`}
+            {score === questions.length
+              ? 'All reviewed — those questions cleared from your review queue.'
+              : `${questions.length - score} question${questions.length - score > 1 ? 's' : ''} still need work — they stay in your review queue.`}
           </div>
-          {!passed && (
-            <button className="quiz-retry" onClick={handleRetry}>Retry quiz</button>
-          )}
         </div>
       )}
     </div>
